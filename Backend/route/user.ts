@@ -5,7 +5,7 @@ import { Router } from "express";
 const router = Router();
 const controller = new UserController();
 
-router.get("/users", controller.getAll);
+
 router.post("/login", controller.login);
 router.post("/register", controller.register);
 
