@@ -1,13 +1,14 @@
-export interface User {
-  id: number;
-  identifiant: string;
+export interface users {
+  customer_id: number;
+  last_name: string;
+  first_name: string;
+  blood_type: string;
+  birth_date: string;
   email: string;
-  mot_de_passe: string;
-  date_de_naissance: string;
-  type_sanguin: string;
-  pays: string;
-  ville: string;
+  password: string;
+  country: string;
+  city: string;
   adresse: string;
-  code_postal: number;
-  numero_de_telephone: number;
+  postal_code: number;
+  phone_number: string;
 }

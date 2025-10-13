@@ -5,7 +5,7 @@ export const pool = new Pool({
   user: "postgres",
   host: "localhost",
   database: "dropmarket",
-  password: "ton_mot_de_passe",
+  password: "azriel26!",
   port: 5432,
 });
 
