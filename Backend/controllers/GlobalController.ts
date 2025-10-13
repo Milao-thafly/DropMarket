@@ -3,8 +3,8 @@ import { Controller } from "../libs/Controller";
 export class GlobalController extends Controller {
   public homepage() {
     this.response.json({
-      message: "AAAAAAAAAAAAAAH",
-      data: [],
+      message: "Voici votre rendu react de la homepage",
+      data: ["http://localhost:3000/data.json"],
     });
   }
 }
