@@ -1,9 +1,11 @@
 export interface Product {
-    id: number;
-    type: string; 
-    type_sanguin: string;
-    dlc: string;
-    image: string;
-    prix: string;
-    id_1: number;
+  organe_id: number;
+  organ_name: string;
+  organ_type: string;
+  description: string;
+  price: number;
+  blood_type: string;
+  use_by_date: Date;
+  stock: boolean;
+  category_id: number;
 }
