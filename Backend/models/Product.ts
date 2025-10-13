@@ -1,11 +1,11 @@
 export interface Product {
-  organe_id: number;
-  organ_name: string;
-  organ_type: string;
-  description: string;
-  price: number;
-  blood_type: string;
-  use_by_date: Date;
-  stock: boolean;
-  category_id: number;
+    organe_id: number;
+    organ_name: string; 
+    organ_type: string;
+    description: string;
+    price: string;
+    blood_type: string;
+    use_by_date: string;
+    stock: string;
+    category_id: number;
 }
