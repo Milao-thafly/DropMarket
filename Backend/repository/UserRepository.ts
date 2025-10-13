@@ -1,4 +1,4 @@
-import { pool } from "../database.js";
+import { pool } from "../libs/Database.js";
 import { User } from "../models/User.js";
 
 export class UserRepository {

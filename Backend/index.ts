@@ -1,11 +1,17 @@
 import Express, { Router } from "express";
 import { fileURLToPath } from "node:url";
+import  cors  from "cors";
 import path from "node:path"
 import  router from "./route/index";
 
 
 const app = Express();
 const PORT = 3000;
+
+app.use(cors(
+));
+app.use(Express.json())
+
 
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +22,7 @@ app.use(Express.urlencoded({ extended: true}));
 
 
 app.use("/", router);
+
 
 app.use(Express.static(path.join(__dirname, "public")));
 
