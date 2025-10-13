@@ -1,4 +1,6 @@
 import { Controller } from "../libs/Controller";
+import { OrganRepository } from '../repository/OrganRepository';
+import { Organ } from '../models/Organ';
 
 export class GlobalController extends Controller {
   public homepage() {
