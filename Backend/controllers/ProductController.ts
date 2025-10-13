@@ -1,4 +1,5 @@
 import { Controller } from "../libs/Controller"
+import { ProductRepository } from "../repository/ProductReposity";
 
 export class CreateProductController extends Controller {
         public createProductRender() {
@@ -11,7 +12,11 @@ export class CreateProductController extends Controller {
 
 
 export class BrowseProductController extends Controller {
-        public browseProductRender() {
+        private repo = new ProductRepository;
+
+        public async browseProductRender() {
+
+            const product = await this.repo.getAll();
             this.response.json({
             data: ["http://localhost:3000/Product"],
             
