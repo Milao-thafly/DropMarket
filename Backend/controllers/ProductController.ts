@@ -18,7 +18,7 @@ export class BrowseProductController extends Controller {
 
             const product = await this.repo.getAll();
             this.response.json({
-            data: ["http://localhost:3000/Product"],
+            data: ["http://localhost:3000/browseProduct"],
             
         })
         console.log(this.response)
