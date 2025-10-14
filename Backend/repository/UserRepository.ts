@@ -1,37 +1,40 @@
+
 import { pool } from "../libs/Database.js";
-import { User } from "../models/User.js";
+import { users } from "../models/User.js";
+
 
 export class UserRepository {
-  async getAll(): Promise<User[]> {
-    const { rows } = await pool.query("SELECT * FROM \"user_\"");
+  async getAll(): Promise<users[]> {
+    const { rows } = await pool.query("SELECT * FROM \"users\"");
     return rows;
   }
 
-  async getByEmail(email: string): Promise<User | null> {
-    const { rows } = await pool.query("SELECT * FROM \"user_\" WHERE email = $1", [email]);
+  async getByEmail(email: string): Promise<users | null> {
+    const { rows } = await pool.query("SELECT * FROM \"users\" WHERE email = $1", [email]);
     return rows[0] || null;
   }
 
-  async create(user: Omit<User, "id">): Promise<User> {
+  async create(users: Omit<users, "customer_id">): Promise<users> {
     const { rows } = await pool.query(
-      `INSERT INTO "user_" (
-        identifiant, email, mot_de_passe, date_de_naissance, 
-        type_sanguin, pays, ville, adresse, code_postal, numero_de_telephone
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
-      RETURNING *`,
-      [
-        user.identifiant,
-        user.email,
-        user.mot_de_passe,
-        user.date_de_naissance,
-        user.type_sanguin,
-        user.pays,
-        user.ville,
-        user.adresse,
-        user.code_postal,
-        user.numero_de_telephone,
-      ]
-    );
+      `INSERT INTO "users" (
+     last_name, first_name, blood_type, birth_date,
+    email, password, country, city, adresse, postal_code, phone_number
+  ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+  RETURNING *`,
+  [
+    users.last_name,
+    users.first_name,
+    users.blood_type,
+    users.birth_date,
+    users.email,
+    users.password,
+    users.country,
+    users.city,
+    users.adresse,
+    users.postal_code,
+    users.phone_number,
+  ]
+);
 
     return rows[0];
   }
