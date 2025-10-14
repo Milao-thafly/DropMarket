@@ -1,3 +1,14 @@
+export interface ProductCardProps{
+    title: string;
+    description: string;
+}
+export interface ProductInfo {
+    title: string;
+    description: string;
+}
+
+
+
 export interface Product {
     organe_id: number;
     organ_name: string; 

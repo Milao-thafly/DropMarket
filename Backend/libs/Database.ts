@@ -2,10 +2,10 @@ import pg from "pg";
 const { Pool } = pg;
 
 export const pool = new Pool({
-  user: "postgres",
+  user: "user_bdd",
   host: "localhost",
   database: "dropmarket",
-  password: "azriel26!",
+  password: "1234",
   port: 5432,
 });
 

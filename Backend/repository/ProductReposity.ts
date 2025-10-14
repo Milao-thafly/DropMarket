@@ -35,10 +35,7 @@ export class ProductRepository {
     static findInStock() {
       throw new Error("Method not implemented.");
     }
-    async findAll(): Promise<Product[]> {
-        const {rows} = await pool.query('SELECT * FROM ORGAN');
-        return rows;
-    }
+  
 
     async findInStock(): Promise<Product[]> {
         const { rows } = await pool.query('SELECT * FROM "ORGAN" WHERE stock = TRUE');
@@ -48,17 +45,13 @@ export class ProductRepository {
     async findOutStock(): Promise<Product[]> {
         const { rows } = await pool.query('SELECT * FROM "ORGAN" WHERE stock = FALSE');
         return rows;
-   
-   
     }
    
-  
 
     async findByName(organ_name: string): Promise<Product []>{
         const { rows } = await pool.query("SELECT organ_name FROM \"organ\" WHERE organ_name = $1", [organ_name])
         return rows[0] || null;
     }
     
-
 }
 

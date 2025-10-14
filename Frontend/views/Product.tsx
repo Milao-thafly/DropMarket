@@ -1,6 +1,12 @@
-import { useState } from 'react'
-import { CardList } from "../src/ui/CardList/CardList"
+import { ProductCard } from '../src/components/Card/ProductCard'
 
-const ProductView = () => {
+
+export const ProductView = () => {
     
+
+      return (
+    
+     <ProductCard />
+    
+  )
 }

@@ -14,8 +14,6 @@ import { useEffect } from 'react';
                     try{
                         const res = await fetch(`${BASE_URL}${endpoint}`)
                         const BrowseDataProduct = await res.json();
-
-
                         setProduct(BrowseDataProduct.result ?? [])
 
                     } catch (err){
@@ -35,7 +33,6 @@ import { useEffect } from 'react';
 }
 
 
-const API_URL = "http://localhost:3000";
 
 export type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -51,7 +48,7 @@ export async function apiFetch<T>(
 
   if (body) options.body = JSON.stringify(body);
 
-  const response = await fetch(`${API_URL}${endpoint}`, options);
+  const response = await fetch(`${BASE_URL}${endpoint}`, options);
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));

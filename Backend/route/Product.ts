@@ -22,4 +22,4 @@ browseProductRouter.get("/browseProduct", (request, response) => {
 
 
 
-export default createProductRouter;
+export default (createProductRouter);
