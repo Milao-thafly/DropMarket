@@ -1,16 +1,17 @@
-
 import { pool } from "../libs/Database.js";
 import { users } from "../models/User.js";
 
-
 export class UserRepository {
   async getAll(): Promise<users[]> {
-    const { rows } = await pool.query("SELECT * FROM \"users\"");
+    const { rows } = await pool.query('SELECT * FROM "users"');
     return rows;
   }
 
   async getByEmail(email: string): Promise<users | null> {
-    const { rows } = await pool.query("SELECT * FROM \"users\" WHERE email = $1", [email]);
+    const { rows } = await pool.query(
+      'SELECT * FROM "users" WHERE email = $1',
+      [email]
+    );
     return rows[0] || null;
   }
 
@@ -21,20 +22,20 @@ export class UserRepository {
     email, password, country, city, adresse, postal_code, phone_number
   ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
   RETURNING *`,
-  [
-    users.last_name,
-    users.first_name,
-    users.blood_type,
-    users.birth_date,
-    users.email,
-    users.password,
-    users.country,
-    users.city,
-    users.adresse,
-    users.postal_code,
-    users.phone_number,
-  ]
-);
+      [
+        users.last_name,
+        users.first_name,
+        users.blood_type,
+        users.birth_date,
+        users.email,
+        users.password,
+        users.country,
+        users.city,
+        users.adresse,
+        users.postal_code,
+        users.phone_number,
+      ]
+    );
 
     return rows[0];
   }
