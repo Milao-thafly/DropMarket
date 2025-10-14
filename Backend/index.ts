@@ -3,8 +3,25 @@ import cors from "cors";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import  router from "./route/index";
+import session from 'express-session';
+import panierRoutes from './route/panier';
 
 const app = express();
+
+
+// Configuration des sessions
+app.use(session({
+    secret: 'mon_secret_ecole_123', // clé par defaut de sessionexpress
+    resave: false,
+    saveUninitialized: true,
+    cookie: { 
+        maxAge: 1000 * 60 * 60 * 24 // 24 heures
+    }
+}));
+
+// Routes
+app.use('/api/panier', panierRoutes);
+
 const PORT = 3000;
 
 app.use(cors(
