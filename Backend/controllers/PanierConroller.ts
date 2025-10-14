@@ -1,13 +1,13 @@
 
 import { Request, Response } from 'express';
 
-interface CartProduct {
-     id: string;
-     productId: string;
-     name: string;
-     price: number;
-     quantity: number;
- }
+// interface CartProduct {
+//      id: string;
+//      productId: string;
+//      name: string;
+//      price: number;
+//      quantity: number;
+//  }
 
 
 // Récupérer le panier

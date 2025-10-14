@@ -5,7 +5,7 @@ import {
     mettreAJourQuantite,
     supprimerProduct,
     viderPanier
-} from '../controllers/PanierController';
+} from '../controllers/PanierConroller';
 
 const router = Router();
 

@@ -11,7 +11,7 @@ const app = express();
 
 // Configuration des sessions
 app.use(session({
-    secret: 'mon_secret_ecole_123', // clé par defaut de sessionexpress
+    secret: 'ma-clef-par-defaut', // clé par defaut de sessionexpress
     resave: false,
     saveUninitialized: true,
     cookie: { 
