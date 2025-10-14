@@ -3,12 +3,12 @@ import { Product } from '../models/Product';
 
 export class ProductRepository {
     async getAll(): Promise<Product[]> {
-        const { rows } = await pool.query("SELECT * FROM \"organ_\"");
+        const { rows } = await pool.query("SELECT * FROM organ_");
         return rows
     }
 
     async getByName(organ_name: string): Promise<Product []>{
-        const { rows } = await pool.query("SELECT organ_name FROM \"organ\" WHERE organ_name = $1", [organ_name])
+        const { rows } = await pool.query("SELECT organ_name FROM organ WHERE organ_name = $1", [organ_name])
         return rows[0] || null;
     }
     
@@ -55,7 +55,7 @@ export class ProductRepository {
   
 
     async findByName(organ_name: string): Promise<Product []>{
-        const { rows } = await pool.query("SELECT organ_name FROM \"organ\" WHERE organ_name = $1", [organ_name])
+        const { rows } = await pool.query("SELECT organ_name FROM organ WHERE organ_name = $1", [organ_name])
         return rows[0] || null;
     }
     
