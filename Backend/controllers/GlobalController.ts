@@ -5,7 +5,7 @@ export class GlobalController extends Controller {
   public async homepage() {
     try {
       const productRepo = new ProductRepository();
-      const products = await productRepo.getAllInStock();
+      const products = await productRepo.findAll();
       this.response.status(200).json({
         message: "Produits disponibles récupérés avec succès",
         data: products

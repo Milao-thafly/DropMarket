@@ -10,7 +10,6 @@ export class CreateProductController extends Controller {
     }
 }
 
-
 export class BrowseProductController extends Controller {
         private repo = new ProductRepository;
 

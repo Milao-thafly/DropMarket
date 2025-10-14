@@ -3,12 +3,12 @@ import { Product } from '../models/Product';
 
 export class ProductRepository {
     async getAll(): Promise<Product[]> {
-        const { rows } = await pool.query("SELECT * FROM \"organ_\"");
+        const { rows } = await pool.query("SELECT * FROM organ");
         return rows
     }
 
     async getByName(organ_name: string): Promise<Product []>{
-        const { rows } = await pool.query("SELECT organ_name FROM \"organ\" WHERE organ_name = $1", [organ_name])
+        const { rows } = await pool.query("SELECT organ_name FROM organ WHERE organ_name = $1", [organ_name])
         return rows[0] || null;
     }
     
@@ -36,29 +36,22 @@ export class ProductRepository {
       throw new Error("Method not implemented.");
     }
     async findAll(): Promise<Product[]> {
-        const {rows} = await pool.query('SELECT * FROM ORGAN');
+        const {rows} = await pool.query('SELECT * FROM organ');
         return rows;
     }
 
     async findInStock(): Promise<Product[]> {
-        const { rows } = await pool.query('SELECT * FROM "ORGAN" WHERE stock = TRUE');
+        const { rows } = await pool.query('SELECT * FROM organ WHERE stock = TRUE');
         return rows;
     }
 
     async findOutStock(): Promise<Product[]> {
-        const { rows } = await pool.query('SELECT * FROM "ORGAN" WHERE stock = FALSE');
+        const { rows } = await pool.query('SELECT * FROM organ WHERE stock = FALSE');
         return rows;
-   
-   
     }
    
-  
-
     async findByName(organ_name: string): Promise<Product []>{
-        const { rows } = await pool.query("SELECT organ_name FROM \"organ\" WHERE organ_name = $1", [organ_name])
+        const { rows } = await pool.query("SELECT organ_name FROM organ WHERE organ_name = $1", [organ_name])
         return rows[0] || null;
     }
-    
-
 }
-
