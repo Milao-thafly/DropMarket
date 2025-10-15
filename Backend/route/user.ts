@@ -1,13 +1,26 @@
-import { UserController } from "../controllers/UserController.js";
-import { User } from "../models/User.js";
 import { Router } from "express";
+import { UserController } from "../controllers/UserController.js";
 
-const router = Router();
-const controller = new UserController();
+const userRouter = Router();
 
+userRouter.get("/users", async (req, res) => {
+  const controller = new UserController(req, res);
+  await controller.getAll();
+});
 
-router.post("/login", controller.login);
-router.post("/register", controller.register);
+userRouter.post("/users", async (req, res) => {
+  const controller = new UserController(req, res);
+  await controller.create();
+});
 
-export default router;
+userRouter.post("/login", async (req, res) => {
+  const controller = new UserController(req, res);
+  await controller.login();
+});
 
+userRouter.post("/register", async (req, res) => {
+  const controller = new UserController(req, res);
+  await controller.register();
+});
+
+export default userRouter;

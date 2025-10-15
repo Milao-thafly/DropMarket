@@ -1,19 +1,30 @@
 {
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "react-router-dom": "^7.9.4",
-    "tsx": "^4.20.6"
-  },
+  "name": "backend-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "tsx watch index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "sass src/scss:public/css",
     "watch:css": "sass --watch src/scss:public/css"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "pg": "^8.16.3",
+    "react-router-dom": "^7.9.4",
+    "tsx": "^4.20.6"
+  },
   "devDependencies": {
     "@types/cors": "^2.8.19",
+    "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.3",
+    "@types/node": "^24.7.2",
     "@types/pg": "^8.15.5",
     "pg": "^8.16.3"
   }
