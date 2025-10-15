@@ -16,10 +16,10 @@ createProductRouter.get("/createProduct", (request, response) => {
 
 
 browseProductRouter.get("/browseProduct", (request, response) => {
-    const createProductControl = new BrowseProductController(request, response);
-    createProductControl.browseProductRender()
+    const browseProductControl = new BrowseProductController(request, response);
+    browseProductControl.browseProductRender()
 })
 
 
 
-export default createProductRouter;
+export default browseProductRouter;
