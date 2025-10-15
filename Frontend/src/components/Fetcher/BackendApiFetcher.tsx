@@ -26,8 +26,6 @@ export const GlobalFetch = async ({ endpoint }: { endpoint: string }) => {
   return { product, isLoading, isError };
 };
 
-const API_URL = "http://localhost:3000";
-
 export type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 export async function apiFetch<T>(
@@ -42,7 +40,11 @@ export async function apiFetch<T>(
 
   if (body) options.body = JSON.stringify(body);
 
-  const response = await fetch(`${API_URL}${endpoint}`, options);
+  const url = `${BASE_URL}${
+    endpoint.startsWith("/") ? endpoint : `/${endpoint}`
+  }`;
+
+  const response = await fetch(url, options);
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));

@@ -1,6 +1,9 @@
-import { Controller } from "../libs/Controller.js";
 import { UserRepository } from "../repository/UserRepository";
+import { Controller } from "../libs/Controller.js";
+import jwt from "jsonwebtoken";
+import argon2 from "argon2";
 
+const JWT_SECRET = process.env.JWT_SECRET || "dev_secret_key";
 
 export class UserController extends Controller {
   private repo = new UserRepository();
@@ -15,15 +18,42 @@ export class UserController extends Controller {
     }
   }
 
-  async create() {
+  async register() {
     try {
-      const user = await this.repo.create(this.request.body);
-      this.response.status(201).json(user);
-    } catch (err) {
-      console.error(err);
-      this.response.status(500).json({
-        message: "Erreur lors de la création de l'utilisateur",
+      const { email, password, ...rest } = this.request.body;
+
+ 
+      const existingUser = await this.repo.getByEmail(email);
+      if (existingUser) {
+        return this.response.status(400).json({ message: "Email déjà utilisé" });
+      }
+
+      const hashedPassword = await argon2.hash(password);
+
+      const newUser = await this.repo.create({
+        ...rest,
+        email,
+        password: hashedPassword,
       });
+
+      const token = jwt.sign(
+        { id: newUser.customer_id, email: newUser.email },
+        JWT_SECRET,
+        { expiresIn: "2h" }
+      );
+
+      this.response.status(201).json({
+        message: "Utilisateur enregistré avec succès",
+        token,
+        user: {
+          email: newUser.email,
+          first_name: newUser.first_name,
+          last_name: newUser.last_name,
+        },
+      });
+    } catch (err) {
+      console.error("Erreur SQL:", err);
+      this.response.status(500).json({ message: "Erreur lors de l'inscription" });
     }
   }
 
@@ -32,26 +62,29 @@ export class UserController extends Controller {
 
     try {
       const user = await this.repo.getByEmail(email);
-      if (!user || user.password !== password) {
-        return this.response
-          .status(401)
-          .json({ message: "Identifiants incorrects" });
+      if (!user) {
+        return this.response.status(401).json({ message: "Utilisateur introuvable" });
       }
 
-      this.response.json({ message: "Connexion réussie", user });
+      const isValid = await argon2.verify(user.password, password);
+      if (!isValid) {
+        return this.response.status(401).json({ message: "Mot de passe incorrect" });
+      }
+
+      const token = jwt.sign(
+        { id: user.customer_id, email: user.email },
+        JWT_SECRET,
+        { expiresIn: "2h" }
+      );
+
+      this.response.json({
+        message: "Connexion réussie",
+        token,
+        user: { email: user.email, firstname: user.first_name, last_name: user.last_name },
+      });
     } catch (err) {
       console.error(err);
       this.response.status(500).json({ message: "Erreur serveur" });
     }
-  }
-
-  async register() {
-    try {
-  const user = await this.repo.create(this.request.body);
-  this.response.status(201).json({ message: "Utilisateur enregistré", user });
-} catch (err: any) {
-  console.error("Erreur SQL:", err); 
-  this.response.status(500).json({ message: "Erreur lors de l'inscription" });
-}
   }
 }

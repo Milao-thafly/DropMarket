@@ -8,23 +8,14 @@ export class GlobalController extends Controller {
       const products = await productRepo.findAll();
       this.response.status(200).json({
         message: "Produits disponibles récupérés avec succès",
-        data: products
+        data: products,
       });
     } catch (error) {
       console.error("Erreur homepage", error);
-      this.response.status(500).json({ message: "Erreur interne du serveur"});
+      this.response.status(500).json({ message: "Erreur interne du serveur" });
     }
   }
 }
-
-// export class GlobalController extends Controller {
-//   public homepage() {
-//     this.response.json({
-//       message: "Voici votre rendu react de la homepage",
-//       data: ["http://localhost:3000/data.json"],
-//     });
-//   }
-// }
 
 export class CreateNewsController extends Controller {
   public showCreateNews() {
@@ -33,5 +24,6 @@ export class CreateNewsController extends Controller {
       data: [],
     });
   }
+
   public createNews() {}
 }

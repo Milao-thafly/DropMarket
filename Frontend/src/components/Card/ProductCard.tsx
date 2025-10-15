@@ -1,28 +1,23 @@
-import { ProductCard } from "./ProductCard.css";
-import { Button } from "../Button/ProductButtonRead";
+import   "./ProductCard.css"
+import { Button } from "../Button/ProductButtonRead"
+import type { ProductCardProps, ProductInfo} from "../../../../Backend/models/Product"
 
-interface ProductCardProps {
-  title: string;
-  overview: string;
-}
-interface ProductInfo {
-  title: string;
-  overview: string;
-  posterUrl: string;
-}
-export const Card = (results: ProductInfo) => {
-  return (
-    <>
-      <div className="card">
-        <p className="title">{results.title} </p>
-        {/* <p>{results.overview} </p> */}
 
-        <div>
-          <Button
-            name="Paye ton putain de film"
-            variant="primary"
-            disabled={true}
-          />
+export const ProductCard = (results: ProductInfo) => {
+    return (
+    
+        <>
+            <div className="card">
+            <p className="title">{results.title} </p>
+            
+            <div>
+            <Button
+                name = "Interested ?"
+                variant="primary"
+
+                 />
+            </div>
+            
         </div>
       </div>
     </>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { apiFetch } from "../src/components/Fetcher/userfetcher";
+import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
+
 
 interface User {
   customer_id: number;
@@ -215,7 +216,7 @@ export default function UserPage() {
         <ul>
           {users.map((u) => (
             <li key={u.customer_id}>
-              {u.firstname} {u.last_name} – {u.email}
+              {u.firstname} {u.last_name} - {u.email}
             </li>
           ))}
         </ul>
