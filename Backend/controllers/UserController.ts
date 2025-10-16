@@ -13,7 +13,7 @@ export class UserController extends Controller {
       const users = await this.repo.getAll();
       this.response.json(users);
     } catch (err) {
-      console.error(err);
+      console.error("Erreur getAll:", err);
       this.response.status(500).json({ message: "Erreur serveur" });
     }
   }
@@ -22,7 +22,10 @@ export class UserController extends Controller {
     try {
       const { email, password, ...rest } = this.request.body;
 
- 
+      if (!email || !password) {
+        return this.response.status(400).json({ message: "Email et mot de passe requis" });
+      }
+
       const existingUser = await this.repo.getByEmail(email);
       if (existingUser) {
         return this.response.status(400).json({ message: "Email déjà utilisé" });
@@ -52,18 +55,30 @@ export class UserController extends Controller {
         },
       });
     } catch (err) {
-      console.error("Erreur SQL:", err);
+      console.error("Erreur register:", err);
       this.response.status(500).json({ message: "Erreur lors de l'inscription" });
     }
   }
 
   async login() {
-    const { email, password } = this.request.body;
-
     try {
+      const { email, password } = this.request.body;
+
+      if (!email || !password) {
+        return this.response.status(400).json({ message: "Email et mot de passe requis" });
+      }
+
       const user = await this.repo.getByEmail(email);
       if (!user) {
         return this.response.status(401).json({ message: "Utilisateur introuvable" });
+      }
+
+      if (typeof user.password !== "string" || !user.password.startsWith("$argon2")) {
+        console.warn("Mot de passe non hashé détecté pour:", email);
+        return this.response.status(500).json({
+          message:
+            "Le mot de passe de cet utilisateur est invalide (non hashé). Veuillez recréer votre compte.",
+        });
       }
 
       const isValid = await argon2.verify(user.password, password);
@@ -80,10 +95,14 @@ export class UserController extends Controller {
       this.response.json({
         message: "Connexion réussie",
         token,
-        user: { email: user.email, firstname: user.first_name, last_name: user.last_name },
+        user: {
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+        },
       });
     } catch (err) {
-      console.error(err);
+      console.error("Erreur login:", err);
       this.response.status(500).json({ message: "Erreur serveur" });
     }
   }
