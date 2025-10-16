@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
 import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
-
+import { useAuth } from "../src/context/Authcontext";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   customer_id: number;
-  firstname: string;
+  first_name: string;
   last_name: string;
   email: string;
   blood_type: string;
@@ -17,9 +18,12 @@ interface User {
 }
 
 export default function UserPage() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [isRegistering, setIsRegistering] = useState(false);
   const [formData, setFormData] = useState({
-    firstname: "",
+    first_name: "",
     last_name: "",
     email: "",
     password: "",
@@ -33,7 +37,6 @@ export default function UserPage() {
   });
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState<User[]>([]);
-
   const fetchUsers = async () => {
     try {
       const data = await apiFetch<User[]>("/users", "GET");
@@ -54,22 +57,26 @@ export default function UserPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const endpoint = isRegistering ? "/register" : "/login";
 
     try {
-      const data = await apiFetch<{ message: string; user?: User }>(
+      const response = await apiFetch<{ token: string; user: User; message?: string }>(
         endpoint,
         "POST",
         formData
       );
 
-      setMessage(data.message);
+      if (!isRegistering && response.token) {
+        login(response.user, response.token);
+        navigate("/homepage");
+      }
 
-      if (!isRegistering) {
-        fetchUsers();
-      } else {
+  
+      if (isRegistering) {
+        setMessage("Compte créé avec succès !");
         setFormData({
-          firstname: "",
+          first_name: "",
           last_name: "",
           email: "",
           password: "",
@@ -84,7 +91,7 @@ export default function UserPage() {
         fetchUsers();
       }
     } catch (err: any) {
-      setMessage(err.message);
+      setMessage(err.message || "Une erreur est survenue.");
     }
   };
 
@@ -100,9 +107,9 @@ export default function UserPage() {
           <>
             <input
               type="text"
-              name="firstname"
+              name="first_name"
               placeholder="Prénom"
-              value={formData.firstname}
+              value={formData.first_name}
               onChange={handleChange}
               required
             />
@@ -125,6 +132,7 @@ export default function UserPage() {
           onChange={handleChange}
           required
         />
+
         <input
           type="password"
           name="password"
@@ -216,7 +224,7 @@ export default function UserPage() {
         <ul>
           {users.map((u) => (
             <li key={u.customer_id}>
-              {u.firstname} {u.last_name} - {u.email}
+              {u.first_name} {u.last_name} - {u.email}
             </li>
           ))}
         </ul>
