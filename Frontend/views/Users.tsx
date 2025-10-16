@@ -2,6 +2,7 @@ import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
 import { useAuth } from "../src/context/Authcontext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "../public/css/user.css";
 
 interface User {
   customer_id: number;
@@ -37,6 +38,7 @@ export default function UserPage() {
   });
   const [message, setMessage] = useState("");
   const [users, setUsers] = useState<User[]>([]);
+
   const fetchUsers = async () => {
     try {
       const data = await apiFetch<User[]>("/users", "GET");
@@ -69,10 +71,9 @@ export default function UserPage() {
 
       if (!isRegistering && response.token) {
         login(response.user, response.token);
-        navigate("/homepage");
+        navigate("/");
       }
 
-  
       if (isRegistering) {
         setMessage("Compte créé avec succès !");
         setFormData({
@@ -96,13 +97,10 @@ export default function UserPage() {
   };
 
   return (
-    <div style={{ padding: "2rem", color: "white" }}>
+    <div className="user-container">
       <h1>{isRegistering ? "Créer un compte" : "Connexion"}</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", width: "300px" }}
-      >
+      <form onSubmit={handleSubmit} className="user-form">
         {isRegistering && (
           <>
             <input
@@ -203,23 +201,20 @@ export default function UserPage() {
           </>
         )}
 
-        <button type="submit" style={{ marginTop: "1rem" }}>
+        <button type="submit">
           {isRegistering ? "S'inscrire" : "Se connecter"}
         </button>
       </form>
 
-      <p style={{ marginTop: "1rem", color: "aqua" }}>{message}</p>
+      <p className="user-message">{message}</p>
 
-      <button
-        onClick={() => setIsRegistering(!isRegistering)}
-        style={{ marginTop: "1rem" }}
-      >
+      <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-button">
         {isRegistering
           ? "Déjà un compte ? Se connecter"
           : "Pas de compte ? S'inscrire"}
       </button>
 
-      <div style={{ marginTop: "2rem" }}>
+      <div className="user-list">
         <h2>Liste des utilisateurs</h2>
         <ul>
           {users.map((u) => (
