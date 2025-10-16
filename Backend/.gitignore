@@ -1,3 +1,4 @@
 node_modules
 Database.ts
 libs/Database.ts
+.env
