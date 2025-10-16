@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import  router from "./route/index";
 import session from 'express-session';
 import panierRoutes from './route/panier';
+import router from "./route/index";
 
 const app = express();
 
@@ -26,6 +27,8 @@ const PORT = 3000;
 app.use(cors(
 ));
 app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

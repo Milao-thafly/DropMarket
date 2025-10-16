@@ -5,17 +5,14 @@ export class GlobalController extends Controller {
   public async homepage() {
     try {
       const productRepo = new ProductRepository();
-      const products = await productRepo.findInStock();
-
+      const products = await productRepo.findAll();
       this.response.status(200).json({
         message: "Produits disponibles récupérés avec succès",
         data: products,
       });
     } catch (error) {
       console.error("Erreur homepage", error);
-      this.response
-        .status(500)
-        .json({ message: "Erreur interne du serveur" });
+      this.response.status(500).json({ message: "Erreur interne du serveur" });
     }
   }
 }
