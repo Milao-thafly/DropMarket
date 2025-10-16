@@ -9,14 +9,16 @@ class Database {
   static getPool(): Pool {
     if (!Database.poolInstance) {
       const envPathDefault = path.resolve(process.cwd(), ".env");
-      const envFile = fs.existsSync(envPathDefault) ? envPathDefault : undefined;
+      const envFile = fs.existsSync(envPathDefault)
+        ? envPathDefault
+        : undefined;
 
       dotenv.config({ path: envFile });
 
       console.log(
-        "PGPASSWORD type:", 
-        typeof process.env.PGPASSWORD, 
-        "value:", 
+        "PGPASSWORD type:",
+        typeof process.env.PGPASSWORD,
+        "value:",
         process.env.PGPASSWORD ? "*****" : process.env.PGPASSWORD
       );
 
@@ -28,7 +30,9 @@ class Database {
         database: process.env.PGDATABASE,
       });
 
-      console.log(`Pool PostgreSQL initialisé avec ${envFile || ".env introuvable"}`);
+      console.log(
+        `Pool PostgreSQL initialisé avec ${envFile || ".env introuvable"}`
+      );
     }
 
     return Database.poolInstance;

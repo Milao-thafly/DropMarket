@@ -3,13 +3,13 @@ import { Product } from "../models/Product";
 
 export class ProductRepository {
   async getAll(): Promise<Product[]> {
-    const { rows } = await pool.query('SELECT * FROM "organ"');
+    const { rows } = await pool.query("SELECT * FROM organ");
     return rows;
   }
 
-  async getByName(organ_name: string): Promise<Product | null> {
+  async getByName(organ_name: string): Promise<Product[]> {
     const { rows } = await pool.query(
-      'SELECT * FROM "organ_" WHERE organ_name = $1',
+      "SELECT organ_name FROM organ WHERE organ_name = $1",
       [organ_name]
     );
     return rows[0] || null;
@@ -17,13 +17,10 @@ export class ProductRepository {
 
   async createProduct(organ: Omit<Product, "id">): Promise<Product> {
     const { rows } = await pool.query(
-      `
-      INSERT INTO "organ_" (
-        organ_name, organ_type, description, price, blood_type, use_by_date, stock, category_id
-      )
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
-      RETURNING *
-      `,
+      ` INSERT INTO "organ_" (
+            organe_id, organ_name, organ_type, description, price, blood_type, use_by_date, stock
+            )VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+            RETURNING * `,
       [
         organ.organ_name,
         organ.organ_type,
@@ -37,23 +34,31 @@ export class ProductRepository {
     );
     return rows[0];
   }
-
+  static findInStock() {
+    throw new Error("Method not implemented.");
+  }
   async findAll(): Promise<Product[]> {
-    const { rows } = await pool.query('SELECT * FROM "organ_"');
+    const { rows } = await pool.query("SELECT * FROM organ");
     return rows;
   }
 
   async findInStock(): Promise<Product[]> {
-    const { rows } = await pool.query(
-      'SELECT * FROM "organ_" WHERE stock = TRUE OR stock > 0'
-    );
+    const { rows } = await pool.query("SELECT * FROM organ WHERE stock = TRUE");
     return rows;
   }
 
   async findOutStock(): Promise<Product[]> {
     const { rows } = await pool.query(
-      'SELECT * FROM "organ_" WHERE stock = FALSE OR stock = 0'
+      "SELECT * FROM organ WHERE stock = FALSE"
     );
     return rows;
+  }
+
+  async findByName(organ_name: string): Promise<Product[]> {
+    const { rows } = await pool.query(
+      "SELECT organ_name FROM organ WHERE organ_name = $1",
+      [organ_name]
+    );
+    return rows[0] || null;
   }
 }

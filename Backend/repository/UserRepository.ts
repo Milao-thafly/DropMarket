@@ -1,7 +1,6 @@
 import { pool } from "../libs/Database.js";
 import { users } from "../models/User.js";
 
-
 export class UserRepository {
   async getAll(): Promise<users[]> {
     const { rows } = await pool.query(`SELECT * FROM "users"`);

@@ -19,10 +19,7 @@ export const ProductCard = (results: ProductInfo) => {
             </div>
             
         </div>
-    
-
-    
-        </>
-   
-    )
-}
+      </div>
+    </>
+  );
+};

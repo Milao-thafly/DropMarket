@@ -66,10 +66,8 @@ export default function UserPage() {
       setMessage(data.message);
 
       if (!isRegistering) {
-
         fetchUsers();
       } else {
-
         setFormData({
           firstname: "",
           last_name: "",
