@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../src/components/Header";
 import Footer from "../src/components/Footer";
 import { useState, useEffect } from "react";
-import "../public/css/user.css";
+import "../src/components/css/user.css";
 
 interface User {
   customer_id: number;
@@ -22,6 +22,7 @@ interface User {
 
 export default function UserPage() {
   const { login } = useAuth();
+  
   const navigate = useNavigate();
 
   const [isRegistering, setIsRegistering] = useState(false);

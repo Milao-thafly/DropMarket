@@ -40,7 +40,7 @@ const PanierPage: React.FC = () => {
   // 2. Calcul du Total
   // Fonction temporaire pour calculer le prix total
   const calculateTotal = () => {
-    return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    return (cart ?? []).reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
   };
 
   const total = calculateTotal();
