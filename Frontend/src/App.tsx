@@ -1,18 +1,24 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { AuthProvider } from "./context/Authcontext"
 import UserPage from "../views/Users"
+import { useState } from 'react'
 import './App.css'
-import HomePage from '../views/HomePage';
+import { CardListProduct } from './components/CardList/CardListProduct'
+import  Homepage  from "../views/HomePage"
+import ProductPage from "../views/Product"
 
 function App() {
   return (
-    <>
-      <Router>
+    <Router>
+      <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<Homepage />} />
           <Route path="/user" element={<UserPage />} />
+          <Route path="/browseProduct" element={<ProductPage />} />
+
         </Routes>
-      </Router>
-    </>
+      </AuthProvider>
+    </Router>
   );
 }
 

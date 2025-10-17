@@ -1,31 +1,20 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-const BASE_URL = "https://localhost:3000/";
+const BASE_URL = "http://localhost:3000";
 export const GlobalFetch = async ({ endpoint }: { endpoint: string }) => {
   const [product, setProduct] = useState<any[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}${endpoint}`);
-        const BrowseDataProduct = await res.json();
 
-        setProduct(BrowseDataProduct.result ?? []);
-      } catch (err) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [endpoint]);
+// export const GlobalFetch = async ({ endpoint }: { endpoint: string }) => {
+//   const [product, setProduct] = useState<any[]>([]);
+//   const [isError, setIsError] = useState<boolean>(false);
+//   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return { product, isLoading, isError };
 };
-
 export type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 export async function apiFetch<T>(
@@ -33,19 +22,11 @@ export async function apiFetch<T>(
   method: FetchMethod = "GET",
   body?: any
 ): Promise<T> {
-  const options: RequestInit = {
-    method,
-    headers: { "Content-Type": "application/json" },
-  };
-
+  const url = `${BASE_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
+  const options: RequestInit = { method, headers: { "Content-Type": "application/json" } };
   if (body) options.body = JSON.stringify(body);
 
-  const url = `${BASE_URL}${
-    endpoint.startsWith("/") ? endpoint : `/${endpoint}`
-  }`;
-
   const response = await fetch(url, options);
-
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.message || "Erreur serveur");

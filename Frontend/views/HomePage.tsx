@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiFetch } from "../src/components/Fetcher/userfetcher";
+import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
 
 interface Product {
   organe_id: number;

@@ -1,4 +1,16 @@
-import { useState } from "react";
-import { CardList } from "../src/ui/CardList/CardList";
+import { useState, useEffect } from 'react'
+import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher"
+import type { ProductCardProps, Product } from "../../Backend/models/Product"
+import {CardListProduct}  from "../src/components/CardList/CardListProduct"
 
-const ProductView = () => {};
+
+export default function ProductPage() {
+
+
+    return(
+
+        <>
+        <CardListProduct/>
+        </>
+    )
+}
