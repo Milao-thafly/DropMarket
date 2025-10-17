@@ -5,21 +5,19 @@ import { fileURLToPath } from "node:url";
 import  router from "./route/index";
 import session from 'express-session';
 import panierRoutes from './route/panier';
-import router from "./route/index";
+
 
 const app = express();
 
-// Configuration des sessions
 app.use(session({
-    secret: 'ma-clef-par-defaut', // clé par defaut de sessionexpress
+    secret: 'ma-clef-par-defaut',
     resave: false,
     saveUninitialized: true,
     cookie: { 
-        maxAge: 1000 * 60 * 60 * 24 // 24 heures
+        maxAge: 1000 * 60 * 60 * 24 
     }
 }));
 
-// Routes
 app.use('/api/panier', panierRoutes);
 
 const PORT = 3000;

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
+import Footer from "../src/components/Footer";
+import Header from "../src/components/Header";
 
 interface Product {
   organe_id: number;
@@ -34,6 +36,8 @@ export default function HomePage() {
   if (error) return <p style={{ color: "red" }}>Erreur: {error}</p>;
 
   return (
+    <>
+          <Header />
     <div>
       <h2>Produits Disponible</h2>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
@@ -57,5 +61,7 @@ export default function HomePage() {
         )}
       </div>
     </div>
+    <Footer />
+        </>
   );
 }

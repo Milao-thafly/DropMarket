@@ -1,7 +1,9 @@
 import { apiFetch } from "../src/components/Fetcher/BackendApiFetcher";
 import { useAuth } from "../src/context/Authcontext";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../src/components/Header";
+import Footer from "../src/components/Footer";
+import { useState, useEffect } from "react";
 import "../public/css/user.css";
 
 interface User {
@@ -97,133 +99,139 @@ export default function UserPage() {
   };
 
   return (
-    <div className="user-container">
-      <h1>{isRegistering ? "Créer un compte" : "Connexion"}</h1>
+    <>
+      <Header />
+      <div className="user-container">
+        <h1>{isRegistering ? "Créer un compte" : "Connexion"}</h1>
 
-      <form onSubmit={handleSubmit} className="user-form">
-        {isRegistering && (
-          <>
-            <input
-              type="text"
-              name="first_name"
-              placeholder="Prénom"
-              value={formData.first_name}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="last_name"
-              placeholder="Nom"
-              value={formData.last_name}
-              onChange={handleChange}
-              required
-            />
-          </>
-        )}
+        <form onSubmit={handleSubmit} className="user-form">
+          {isRegistering && (
+            <>
+              <input
+                type="text"
+                name="first_name"
+                placeholder="Prénom"
+                value={formData.first_name}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="last_name"
+                placeholder="Nom"
+                value={formData.last_name}
+                onChange={handleChange}
+                required
+              />
+            </>
+          )}
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Mot de passe"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="password"
+            name="password"
+            placeholder="Mot de passe"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
 
-        {isRegistering && (
-          <>
-            <input
-              type="text"
-              name="blood_type"
-              placeholder="Type sanguin"
-              value={formData.blood_type}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="date"
-              name="birth_date"
-              placeholder="Date de naissance"
-              value={formData.birth_date}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="country"
-              placeholder="Pays"
-              value={formData.country}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="city"
-              placeholder="Ville"
-              value={formData.city}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="adresse"
-              placeholder="Adresse"
-              value={formData.adresse}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="number"
-              name="postal_code"
-              placeholder="Code postal"
-              value={formData.postal_code}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="phone_number"
-              placeholder="Numéro de téléphone"
-              value={formData.phone_number}
-              onChange={handleChange}
-              required
-            />
-          </>
-        )}
+          {isRegistering && (
+            <>
+              <input
+                type="text"
+                name="blood_type"
+                placeholder="Type sanguin"
+                value={formData.blood_type}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="date"
+                name="birth_date"
+                placeholder="Date de naissance"
+                value={formData.birth_date}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="country"
+                placeholder="Pays"
+                value={formData.country}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="city"
+                placeholder="Ville"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="adresse"
+                placeholder="Adresse"
+                value={formData.adresse}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="number"
+                name="postal_code"
+                placeholder="Code postal"
+                value={formData.postal_code}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="phone_number"
+                placeholder="Numéro de téléphone"
+                value={formData.phone_number}
+                onChange={handleChange}
+                required
+              />
+            </>
+          )}
 
-        <button type="submit">
-          {isRegistering ? "S'inscrire" : "Se connecter"}
+          <button type="submit">
+            {isRegistering ? "S'inscrire" : "Se connecter"}
+          </button>
+        </form>
+
+        <p className="user-message">{message}</p>
+
+        <button
+          onClick={() => setIsRegistering(!isRegistering)}
+          className="toggle-button"
+        >
+          {isRegistering
+            ? "Déjà un compte ? Se connecter"
+            : "Pas de compte ? S'inscrire"}
         </button>
-      </form>
-
-      <p className="user-message">{message}</p>
-
-      <button onClick={() => setIsRegistering(!isRegistering)} className="toggle-button">
-        {isRegistering
-          ? "Déjà un compte ? Se connecter"
-          : "Pas de compte ? S'inscrire"}
-      </button>
-
-      <div className="user-list">
-        <h2>Liste des utilisateurs</h2>
-        <ul>
-          {users.map((u) => (
-            <li key={u.customer_id}>
-              {u.first_name} {u.last_name} - {u.email}
-            </li>
-          ))}
-        </ul>
+        {/* <div className="user-list">
+          <h2>Liste des utilisateurs</h2>
+          <ul>
+            {users.map((u) => (
+              <li key={u.customer_id}>
+                {u.first_name} {u.last_name} - {u.email}
+              </li>
+            ))}
+          </ul>
+        </div> */}
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
