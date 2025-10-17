@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 import  router from "./route/index";
 import session from 'express-session';
 import panierRoutes from './route/panier';
-import router from "./route/index";
 
 const app = express();
 
