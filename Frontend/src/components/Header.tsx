@@ -15,7 +15,7 @@ export default function Header() {
         </div>
 
         <nav className="header-nav">
-          <LienNav href="/organs" ariaLabel="Lien vers organs">organs</LienNav>
+          <LienNav href="/browseProduct" ariaLabel="Lien vers organs">organs</LienNav>
           <LienNav href="/forum" ariaLabel="Lien vers le forum">forum</LienNav>
 
           {!user && <LienNav href="/user" ariaLabel="Lien vers inscription">Se connecter</LienNav>}
