@@ -5,21 +5,25 @@ import './App.css'
 import  Homepage  from "../views/HomePage"
 import ProductPage from "../views/Product"
 import CreateProductPage from "../views/CreateProduct"
-import  PanierPage  from "../src/components/Pages/Panier"
-
+import Panier from "./components/Pages/Panier"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
 
 function App() {
   return (
     <Router>
+
       <AuthProvider>
+         <Header />
         <Routes>
-          <Route path="/panier" element={<PanierPage />} />
+          <Route path="/panier" element={<Panier />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/browseProduct" element={<ProductPage />} />
           <Route path="/createProduct" element={<CreateProductPage />} />
         </Routes>
       </AuthProvider>
+       <Footer />
     </Router>
   );
 }
