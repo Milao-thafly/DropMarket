@@ -1,14 +1,15 @@
 import   "./ProductCard.css"
 import { Button } from "../Button/ProductButtonRead"
-import type { ProductCardProps, ProductInfo} from "../../../../Backend/models/Product"
+import type { ProductCardProps, ProductInfo, ProductListResponse, Product} from "../../../../Backend/models/Product"
 
 
-export const ProductCard = (results: ProductInfo) => {
+export const ProductCard = ({info}: ProductCardProps<Product[]>) => {
     return (
     
         <>
             <div className="card">
-            <p className="title">{results.title} </p>
+            <p className="title">{info.title} </p>
+            <p className="description">{info.description}</p>
             
             <div>
             <Button
@@ -19,7 +20,7 @@ export const ProductCard = (results: ProductInfo) => {
             </div>
             
         </div>
-      </div>
+      
     </>
   );
 };

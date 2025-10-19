@@ -1,7 +1,7 @@
 import { Router } from "express";
 import homeRouter from './home';
 import userRouter from "./user";
-import browseProductRouter from "./product"
+import browseProductRouter from "./Product"
 const router = Router();
 
 router.use(homeRouter);
