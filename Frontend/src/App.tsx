@@ -12,6 +12,7 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
+          <Route path="/panier" element={<Panier />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/browseProduct" element={<ProductPage />} />

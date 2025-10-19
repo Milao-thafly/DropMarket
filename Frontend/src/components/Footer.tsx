@@ -1,12 +1,13 @@
 import { ContactUs } from "./Atoms/ContactUs";
 import { FooterTitle } from "./Atoms/FooterTitle";
+import "../components/css/footer.css"
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t bg-white py-4">
-      <div className="max-w-7xl mx-auto flex flex-col items-center space-y-2">
+    <footer>
+      <div className="footer-container">
         <ContactUs />
-        <FooterTitle />
+        <FooterTitle className="footer-title" />
       </div>
     </footer>
   );
