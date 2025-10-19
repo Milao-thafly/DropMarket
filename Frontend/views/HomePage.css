@@ -1,23 +1,68 @@
-    <div>
-      <h2>Produits Disponible</h2>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
-        {products.length > 0 ? (
-          products.map((p) => (
-            <div
-              key={p.organe_id}
-              style={{
-                border: "1px solid grey",
-                padding: "1rem",
-                width: "200px",
-              }}
-            >
-              <h3>{p.organ_name}</h3>
-              <p>{p.description}</p>
-              <strong>{p.price}€</strong>
-            </div>
-          ))
-        ) : (
-          <p>Aucun produit disponible pour le moment.</p>
-        )}
-      </div>
-    </div>
+.homepage {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.carousel-section {
+  margin-bottom: 3rem;
+}
+
+.products-container {
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.products-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  width: 200px;
+  border-radius: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.product-card p {
+  margin: 0.5rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.product-card strong {
+  color: #0077cc;
+  font-size: 1.1rem;
+}
+
+.no-products {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  padding: 2rem;
+}
