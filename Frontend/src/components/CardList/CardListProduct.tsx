@@ -8,24 +8,17 @@ import type { ProductCardProps, Product, ProductListResponse } from "../../../..
 export const  CardListProduct =  () => {
 
     const [message, setMessage] = useState("");
-
-            const [data, setData] = useState<ProductListResponse | null>(null);
-
+    const [data, setData] = useState<ProductListResponse | null>(null);
 
     useEffect(() => {
-
         const fetchProduct = async () => {
             try {
-
-                        const products = await apiFetch<Product[]>("browseProduct", "GET");
-
-
-            const wrappedData: ProductListResponse = {
-          info: {
-            title: "Liste des organes",
-            description:"lol",
-            
-          },
+                const products = await apiFetch<Product[]>("browseProduct", "GET");
+                const wrappedData: ProductListResponse = {
+                info: {
+                    title: "Liste des organes",
+                    description:"lol",
+                },
            products,
         };
 
@@ -41,13 +34,13 @@ export const  CardListProduct =  () => {
     }, []);
 
     
-  if (message) {
-    return <p>{message}</p>;
-  }
+    if (message) {
+        return <p>{message}</p>;
+    }
 
-  if (!data) {
-    return <p>Chargement...</p>;
-  }
+    if (!data) {
+        return <p>Chargement...</p>;
+    }
     
 
 
@@ -55,23 +48,19 @@ export const  CardListProduct =  () => {
     return (
         <>
         <h2>Organ</h2>
-
             <div className="ProductBrowsed">
-
                 <ul className="List">
-
                     {data.products.map((product) => {
                         return(
                         <li key={product.organe_id}>
                             <ProductCard 
-                            title={product.organ_name}
-                            description={product.description}
-                            
-                            />
-                            
+                                info={{
+                                    title: product.organ_name,
+                                    description: product.description
+                                    }}
+                                typeresult={product}
+                            /> 
                         </li>
-
-
                         )
                     })}
                 </ul>

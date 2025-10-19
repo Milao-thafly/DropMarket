@@ -1,0 +1,7 @@
+.PPcard{
+    border: solid 1px white ;
+    min-height: 200px;
+        min-width: 280px;
+
+    box-sizing: border-box;
+}
