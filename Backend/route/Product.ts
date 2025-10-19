@@ -8,7 +8,7 @@ const browseProductRouter = Router();
 
 
 
-createProductRouter.get("/createProduct", (request, response) => {
+ createProductRouter.get("/createProduct", (request, response) => {
     const createProductControl = new CreateProductController(request, response);
     createProductControl.createProductRender()
 })
@@ -22,4 +22,4 @@ browseProductRouter.get("/browseProduct", (request, response) => {
 
 
 
-export default browseProductRouter;
+export { createProductRouter, browseProductRouter };

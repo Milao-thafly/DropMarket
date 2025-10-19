@@ -1,22 +1,23 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import { AuthProvider } from "./context/Authcontext"
 import UserPage from "../views/Users"
-import { useState } from 'react'
 import './App.css'
-import { CardListProduct } from './components/CardList/CardListProduct'
 import  Homepage  from "../views/HomePage"
 import ProductPage from "../views/Product"
+import CreateProductPage from "../views/CreateProduct"
+import  PanierPage  from "../src/components/Pages/Panier"
+
 
 function App() {
   return (
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/panier" element={<Panier />} />
+          <Route path="/panier" element={<PanierPage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/user" element={<UserPage />} />
           <Route path="/browseProduct" element={<ProductPage />} />
-
+          <Route path="/createProduct" element={<CreateProductPage />} />
         </Routes>
       </AuthProvider>
     </Router>
