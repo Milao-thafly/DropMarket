@@ -12,6 +12,10 @@ userRouter.post("/users", async (req, res) => {
   const controller = new UserController(req, res);
   await controller.create();
 });
+userRouter.patch("/users/:id", async (req, res) => {
+  const controller = new UserController(req, res);
+  await controller.update();
+});
 
 userRouter.post("/login", async (req, res) => {
   const controller = new UserController(req, res);

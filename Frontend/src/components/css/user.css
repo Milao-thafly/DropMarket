@@ -1,77 +1,87 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
+
 html, body, #root {
   height: 100%;
   width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1a1a1a;
+  color: #d0d0d0;
 }
+
 .user-container {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center;     
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   width: 100%;
-  background-color: #0a0a0f;
-  color: white;
-  text-align: center;
   padding: 2rem 1rem;
-  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
 }
 
 .user-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1rem;
   width: 90%;
   max-width: 400px;
   margin: 1.5rem auto;
-  background: rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+  background: rgba(40, 40, 40, 0.8);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 5px #550000;
+  backdrop-filter: blur(4px);
+  animation: pulse-shadow 2s infinite alternate;
+  transition: all 0.3s ease-in-out;
 }
 
 .user-form input {
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: none;
   border-radius: 6px;
-  background-color: #1a1a1f;
-  color: white;
+  background-color: #2a2a2a;
+  color: #c0c0c0;
   font-size: 1rem;
-  transition: background-color 0.3s;
   width: 100%;
-  box-sizing: border-box;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .user-form input:focus {
-  background-color: #222;
+  background-color: #3a3a3a;
+  outline: none;
+  box-shadow: 0 0 8px #00ff00, 0 0 3px #ff0000 inset;
 }
 
 .user-form button,
 .toggle-button {
-  padding: 10px;
-  background-color: #00bcd4;
+  padding: 12px;
   border: none;
   border-radius: 6px;
-  color: white;
-  cursor: pointer;
+  background-color: #550000;
+  color: #f0f0f0;
   font-weight: bold;
-  transition: background-color 0.3s;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
   width: 100%;
+  animation: pulse-button 1.5s infinite alternate;
 }
 
 .user-form button:hover,
 .toggle-button:hover {
-  background-color: #0097a7;
+  background-color: #880000;
+  box-shadow: 0 0 15px #ff0000, 0 0 5px #00ff00 inset;
 }
 
 .user-message {
   margin-top: 1rem;
-  color: #00ffff;
+  color: #7fff00;
   font-size: 0.9rem;
+  text-shadow: 0 0 4px #00ff00, 0 0 10px #ff0000;
+  animation: pulse-message 1.8s infinite alternate;
 }
 
 .user-list {
@@ -87,11 +97,33 @@ html, body, #root {
 }
 
 .user-list li {
-  background: #1a1a1f;
-  margin-bottom: 6px;
-  padding: 10px;
+  background: #2a2a2a;
+  margin-bottom: 8px;
+  padding: 10px 12px;
   border-radius: 6px;
   font-size: 0.95rem;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.2), inset 0 0 4px #550000;
+  animation: pulse-list 2.5s infinite alternate;
+}
+
+@keyframes pulse-shadow {
+  0% { box-shadow: 0 0 15px rgba(0, 255, 0, 0.2), inset 0 0 3px #550000; }
+  100% { box-shadow: 0 0 25px rgba(0, 255, 0, 0.5), inset 0 0 7px #880000; }
+}
+
+@keyframes pulse-button {
+  0% { box-shadow: 0 0 8px #ff0000, 0 0 2px #00ff00 inset; }
+  100% { box-shadow: 0 0 18px #ff0000, 0 0 5px #00ff00 inset; }
+}
+
+@keyframes pulse-message {
+  0% { text-shadow: 0 0 3px #00ff00, 0 0 8px #ff0000; }
+  100% { text-shadow: 0 0 6px #00ff00, 0 0 12px #ff0000; }
+}
+
+@keyframes pulse-list {
+  0% { box-shadow: 0 0 5px rgba(0, 255, 0, 0.2), inset 0 0 2px #550000; }
+  100% { box-shadow: 0 0 12px rgba(0, 255, 0, 0.5), inset 0 0 5px #880000; }
 }
 
 @media (min-width: 768px) {

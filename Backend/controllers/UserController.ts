@@ -49,9 +49,17 @@ export class UserController extends Controller {
         message: "Utilisateur enregistré avec succès",
         token,
         user: {
+          customer_id: newUser.customer_id, 
           email: newUser.email,
           first_name: newUser.first_name,
           last_name: newUser.last_name,
+          blood_type: newUser.blood_type,
+          birth_date: newUser.birth_date,
+          country: newUser.country,
+          city: newUser.city,
+          adresse: newUser.adresse,
+          postal_code: newUser.postal_code,
+          phone_number: newUser.phone_number,
         },
       });
     } catch (err) {
@@ -76,8 +84,7 @@ export class UserController extends Controller {
       if (typeof user.password !== "string" || !user.password.startsWith("$argon2")) {
         console.warn("Mot de passe non hashé détecté pour:", email);
         return this.response.status(500).json({
-          message:
-            "Le mot de passe de cet utilisateur est invalide (non hashé). Veuillez recréer votre compte.",
+          message: "Le mot de passe est invalide (non hashé). Veuillez recréer votre compte.",
         });
       }
 
@@ -96,14 +103,56 @@ export class UserController extends Controller {
         message: "Connexion réussie",
         token,
         user: {
+          customer_id: user.customer_id, 
           email: user.email,
           first_name: user.first_name,
           last_name: user.last_name,
+          blood_type: user.blood_type,
+          birth_date: user.birth_date,
+          country: user.country,
+          city: user.city,
+          adresse: user.adresse,
+          postal_code: user.postal_code,
+          phone_number: user.phone_number,
         },
       });
     } catch (err) {
       console.error("Erreur login:", err);
       this.response.status(500).json({ message: "Erreur serveur" });
+    }
+  }
+
+  async update() {
+    try {
+      const userId = Number(this.request.params.id);
+      if (isNaN(userId)) {
+        return this.response.status(400).json({ message: "ID utilisateur invalide" });
+      }
+
+      const { email, password, postal_code, ...rest } = this.request.body;
+
+      const updatedData: any = { ...rest };
+
+      if (email) updatedData.email = email;
+      if (password) updatedData.password = await argon2.hash(password);
+
+      if (postal_code !== undefined && postal_code !== null) {
+        const pcNumber = Number(postal_code);
+        updatedData.postal_code = isNaN(pcNumber) ? null : pcNumber;
+      }
+
+      const updatedUser = await this.repo.update({
+        ...updatedData,
+        customer_id: userId,
+      });
+
+      this.response.json({
+        message: "Profil mis à jour avec succès",
+        user: updatedUser,
+      });
+    } catch (err) {
+      console.error("Erreur update:", err);
+      this.response.status(500).json({ message: "Erreur serveur lors de la mise à jour" });
     }
   }
 }

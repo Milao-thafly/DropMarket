@@ -15,7 +15,7 @@ export const GlobalFetch = async ({ endpoint }: { endpoint: string }) => {
 
   return { product, isLoading, isError };
 };
-export type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
+export type FetchMethod = "GET" |"PATCH"| "POST" | "PUT" | "DELETE";
 
 export async function apiFetch<T>(
   endpoint: string,
